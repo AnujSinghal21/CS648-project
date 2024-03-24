@@ -1,14 +1,11 @@
 #include"util.h"
-#define X 1e6
-#define CHUNK_SIZE 1000000
+#define CHUNK_SIZE 1e6
 
-int64 timer(int func(int64), int64 arg, int n){
-    return 0;
-}
-int generate_data(int64 n, int mode){
-    FILE * fp = fopen("data.bin", "w");
+int generate_data(int64 n, int mode, char * filename){
+    FILE * fp = fopen(filename, "w");
     int64 * buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     int64 curr = 0;
+    srand(time(NULL));
     switch (mode)
     {
     case 0:
@@ -60,4 +57,39 @@ int generate_data(int64 n, int mode){
     }
     free(buffer);
     return 0;
+}
+
+int64 reader_next(struct file_reader * fr){
+    if (fr->index == CHUNK_SIZE)
+    {
+        int r = fread(fr->buffer, sizeof(int64), CHUNK_SIZE, fr->fp);
+        if (r < 0){
+            return -1;
+        }
+        fr->index = 0;
+    }
+    return fr->buffer[fr->index++];
+}
+
+void reader_reset(struct file_reader * fr){
+    fr->index = 0;
+    fseek(fr->fp, 0, SEEK_SET);
+    return;
+}
+
+void reader_close(struct file_reader * fr){
+    free(fr->buffer);
+    fclose(fr->fp);
+    return;
+}
+
+struct file_reader get_reader(char * filename){
+    file_reader fr;
+    fr.fp = fopen(filename, "rb");
+    fr.buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
+    fr.index = CHUNK_SIZE;
+    fr.next = &reader_next;
+    fr.reset = &reader_reset;
+    fr.close = &reader_close;
+    return fr;
 }
