@@ -1,11 +1,11 @@
 # Compiler
-CC = gcc
+CC = g++
 
 # Compiler flags
 CFLAGS = -Wall -O3 -flto -march=native
 
 # Source files
-SRCS = analysis1.c algo1.c util.c
+SRCS = analysis1.cpp algo1.cpp util.cpp
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -17,12 +17,12 @@ TARGET = analysis1
 all: $(TARGET)
 
 # Compile source files into object files
-util.o: util.c util.h
-	$(CC) $(CFLAGS) -c util.c -o util.o
-algo1.o: algo1.c algo1.h util.h
-	$(CC) $(CFLAGS) -c algo1.c -o algo1.o
-analysis1.o: analysis1.c algo1.h util.h
-	$(CC) $(CFLAGS) -c analysis1.c -o analysis1.o
+util.o: util.cpp util.hpp
+	$(CC) $(CFLAGS) -c util.cpp -o util.o
+algo1.o: algo1.cpp algo1.hpp util.hpp
+	$(CC) $(CFLAGS) -c algo1.cpp -o algo1.o
+analysis1.o: analysis1.cpp algo1.hpp util.hpp
+	$(CC) $(CFLAGS) -c analysis1.cpp -o analysis1.o
 analysis1: analysis1.o algo1.o util.o
 	$(CC) $(CFLAGS) analysis1.o algo1.o util.o -o analysis1
 
