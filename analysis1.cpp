@@ -1,11 +1,11 @@
-#include "util.h"
-#include "algo1.h"
+#include "util.hpp"
+#include "algo1.hpp"
 int sample_read(){
-    file_reader fr = get_reader("data.bin");
+    reader fr("data.bin");
     int64 z;
     for (int64 i = 0; i < 1e7; i++)
     {
-        z = fr.next(&fr);
+        z = fr.next();
         if (z % 1000000000 == 0){
             printf("z\n");
         }

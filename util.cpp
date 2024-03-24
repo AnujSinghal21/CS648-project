@@ -1,8 +1,7 @@
-#include"util.h"
+#include "util.hpp"
 #define CHUNK_SIZE 1e6
-
-int generate_data(int64 n, int mode, char * filename){
-    FILE * fp = fopen(filename, "w");
+int generate_data(int64 n, int mode, string filename){
+    FILE * fp = fopen(filename.c_str(), "w");
     int64 * buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     int64 curr = 0;
     srand(time(NULL));
@@ -59,37 +58,30 @@ int generate_data(int64 n, int mode, char * filename){
     return 0;
 }
 
-int64 reader_next(struct file_reader * fr){
-    if (fr->index == CHUNK_SIZE)
+int64 reader::next(){
+    if (index == CHUNK_SIZE)
     {
-        int r = fread(fr->buffer, sizeof(int64), CHUNK_SIZE, fr->fp);
+        int r = fread(buffer, sizeof(int64), CHUNK_SIZE, fp);
         if (r < 0){
             return -1;
         }
-        fr->index = 0;
+        index = 0;
     }
-    return fr->buffer[fr->index++];
+    return buffer[index++];
 }
-
-void reader_reset(struct file_reader * fr){
-    fr->index = 0;
-    fseek(fr->fp, 0, SEEK_SET);
+void reader::reset(){
+    index = 0;
+    fseek(fp, 0, SEEK_SET);
+    return;
+}
+void reader::close(){
+    free(buffer);
+    fclose(fp);
     return;
 }
 
-void reader_close(struct file_reader * fr){
-    free(fr->buffer);
-    fclose(fr->fp);
-    return;
-}
-
-struct file_reader get_reader(char * filename){
-    file_reader fr;
-    fr.fp = fopen(filename, "rb");
-    fr.buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
-    fr.index = CHUNK_SIZE;
-    fr.next = &reader_next;
-    fr.reset = &reader_reset;
-    fr.close = &reader_close;
-    return fr;
+reader::reader(string filename){
+    fp = fopen(filename.c_str(), "rb");
+    buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
+    index = CHUNK_SIZE;
 }
