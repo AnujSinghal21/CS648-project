@@ -5,3 +5,4 @@
 
 typedef long long int64;
 int64 timer(int func(int64), int64 arg, int n);
+int generate_data(int64 n, int mode);
