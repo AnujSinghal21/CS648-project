@@ -3,9 +3,10 @@
 int64 two_pass_algo(){
      int64 set_size = pow(N, 2.0/3.0) * log(N);
      int64 range_size = pow(N, 2.0/3.0);
-     int64 med_pos = N/2;
+     int64 med_pos = N/2 + 1;
+     
      int64 found_med;
-     generate_data(N, 1, "testdata2.txt"); // for datset
+     generate_data(N, 0, "testdata2.txt"); // for datset
      reader fr("testdata2.txt");
      int64 num;
      int64 found = 0;
@@ -71,21 +72,24 @@ int64 two_pass_algo(){
                     --it;
                     if(*it>num)
                     {
-                        small_nums.erase(it);
-                        small_nums.insert(num);
+                        large_nums.erase(it);
+                        large_nums.insert(num);
                     }
                 }
             }
             else{
                 same_as++;
+                rank++;
             }
         }
         
         fr.close();
-
+        
+        rank--;
         for(int64 i = 1;i<same_as;i++){
+            auto it = small_nums.begin();
+            small_nums.erase(it);
             small_nums.insert(med_num);
-            rank++;
         }
 
         int64 low_range = rank - range_size;
@@ -94,6 +98,7 @@ int64 two_pass_algo(){
         if(low_range>med_pos || up_range<med_pos)
         {
             // The algorithm continues
+            cout << "Another Iteration" << endl;
         }
         else
         {
@@ -110,20 +115,18 @@ int64 two_pass_algo(){
                     ++it;
                 }
                 found_med = *it;
-                //cout << "The Median is : " << found_med;
             }
             else{
                 int64 offset = rank-med_pos;
                 auto it = small_nums.end();
+                it--;
                 for(int64 i = 0;i<offset;i++){
                     --it;
                 }
                 found_med = *it;
-                //cout << "The Median is : " << found_med;
             }
             //break;
         }
      }
-
     return found_med; 
 }
