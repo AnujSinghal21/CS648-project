@@ -2,7 +2,6 @@
 #include <random>
 #include <ctime>
 #include "algo1.hpp"
-#include "algo2.hpp"
 #include "util.hpp"
 using namespace std;
 typedef long long ll;
