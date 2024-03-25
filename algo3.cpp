@@ -4,7 +4,7 @@ int64 one_pass_median(string filename, int64 n){
     reader fr(filename);
     multiset<int64> curr_set;
     int64 low=0, high=0;
-    int64 n, curr, curr_size, curr_set_size;
+    int64 curr, curr_size, curr_set_size;
     //cin >> n;
     curr_set_size =  sqrtl(n);
     //vector<int64> v; //for testing

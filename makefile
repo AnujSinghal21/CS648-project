@@ -11,7 +11,7 @@ SRCS = analysis1.cpp algo1.cpp util.cpp
 OBJS = $(SRCS:.c=.o)
 
 # Target executable
-TARGET = analysis1 analysis2
+TARGET = analysis1 analysis2 analysis3
 
 # Default target
 all: $(TARGET)
