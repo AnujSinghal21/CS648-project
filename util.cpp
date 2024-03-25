@@ -1,6 +1,5 @@
 #include "util.hpp"
 #define CHUNK_SIZE 1e6
-#define bign 1e11
 
 int64 get_rand_num(int64 Range){
    static mt19937_64 gen(static_cast<unsigned int>(time(0)));
