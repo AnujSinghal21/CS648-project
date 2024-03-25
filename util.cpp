@@ -25,7 +25,6 @@ int generate_data(int64 n, int mode, string filename){
                 buffer[i] = rand();
             }
             fwrite(buffer, sizeof(int64), chunk, fp);
-            printf("Remaining: %lld\n", n);
             n -= chunk;
         }
         break;
@@ -40,7 +39,7 @@ int generate_data(int64 n, int mode, string filename){
                 buffer[i] = ++curr;
             }
             fwrite(buffer, sizeof(int64), chunk, fp);
-            printf("Remaining: %lld\n", n);
+            //printf("Remaining: %lld\n", n);
             n -= chunk;
         }
         break;
@@ -55,7 +54,7 @@ int generate_data(int64 n, int mode, string filename){
                 buffer[i] = curr--;
             }
             fwrite(buffer, sizeof(int64), chunk, fp);
-            printf("Remaining: %lld\n", n);
+            //printf("Remaining: %lld\n", n);
             n -= chunk;
         }
         break;    

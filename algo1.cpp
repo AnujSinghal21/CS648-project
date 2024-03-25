@@ -5,10 +5,11 @@ int64 two_pass_algo(){
      int64 range_size = pow(N, 2.0/3.0);
      int64 med_pos = N/2;
      int64 found_med;
-     generate_data(N, 0, "testdata.txt"); // for datset
-     reader fr("testdata.txt");
+     generate_data(N, 1, "testdata2.txt"); // for datset
+     reader fr("testdata2.txt");
      int64 num;
      int64 found = 0;
+  
      while(found!=1)
      {
         vector<int64> set_nums;
@@ -80,7 +81,7 @@ int64 two_pass_algo(){
             }
         }
         
-        fr.reset();
+        fr.close();
 
         for(int64 i = 1;i<same_as;i++){
             small_nums.insert(med_num);
@@ -123,5 +124,6 @@ int64 two_pass_algo(){
             //break;
         }
      }
+
     return found_med; 
 }

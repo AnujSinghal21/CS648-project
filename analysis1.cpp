@@ -23,5 +23,6 @@ int main(){
     t_end = clock();
     double time_taken = ((double)(t_end - t_start)) * 1000 / CLOCKS_PER_SEC;
     printf("Time taken to read data: %.3lf ms\n", time_taken);
+    cout << "The median is :" << result << endl;
     return 0;
 }

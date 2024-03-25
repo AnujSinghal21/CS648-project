@@ -2,6 +2,6 @@
 
 int main()
 {
-    int64 median = one_pass_median("testdata.txt",1e7);
+    int64 median = one_pass_median("testdata2.txt",N);
     cout << "The median is:" << median << endl;
 }

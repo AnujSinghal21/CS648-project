@@ -41,10 +41,10 @@ int64 one_pass_median(string filename, int64 n){
         curr_size++;
     }
 
-    fr.reset();
+    fr.close();
     int64 index_needed = (n/2) - low; 
     if(index_needed > curr_set.size()){
-        cout << "OOPS!! Algorithm Failed";
+        cout << "OOPS!! Algorithm Failed" << endl;
         return 0;
     }
     else{
@@ -52,7 +52,7 @@ int64 one_pass_median(string filename, int64 n){
     for(int64 i = 1;i<index_needed;i++){
         ++it;
     }
-    ++it; // just a hunch
+    ++it;
     int64 guessed_median = *it;
     cout << "The median of the stream of n random integers is: " << guessed_median << '\n';
     // for(auto p : v){
