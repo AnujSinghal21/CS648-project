@@ -1,13 +1,13 @@
 #include "algo1.hpp"
 
-int64 two_pass_algo(){
+int64 two_pass_algo(string filename){
      int64 set_size = pow(N, 2.0/3.0) * log(N);
      int64 range_size = pow(N, 2.0/3.0);
      int64 med_pos = N/2 + 1;
      
      int64 found_med;
-     generate_data(N, 0, "testdata2.txt"); // for datset
-     reader fr("testdata2.txt");
+     
+     reader fr(filename);
      int64 num;
      int64 found = 0;
   

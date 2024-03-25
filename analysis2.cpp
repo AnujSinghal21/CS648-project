@@ -5,7 +5,7 @@ int main(){
     //srand(time(0));
     t_start = clock();
     // int64 median = quick_median("data.bin", 1e7);
-    int64 median = stl_median("testdata2.txt", N);
+    int64 median = stl_median("testdata.txt");
     printf("Median: %lld\n", median);
     // generate_data(1e7, 1, "data.bin");
     // sample_read();

@@ -19,7 +19,8 @@ int main(){
     t_start = clock();
     //generate_data(1e7, 0, "data.bin");
     // sample_read();
-    int64 result = two_pass_algo();
+    generate_data(N, 0, "testdata.txt"); // for datset, if want sortd dataset set flag to be 1 or -1, otherwise 0 for random dataset
+    int64 result = two_pass_algo("testdata.txt");
     t_end = clock();
     double time_taken = ((double)(t_end - t_start)) * 1000 / CLOCKS_PER_SEC;
     printf("Time taken to read data: %.3lf ms\n", time_taken);

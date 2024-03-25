@@ -1,12 +1,12 @@
 #include "algo3.hpp"
 
-int64 one_pass_median(string filename, int64 n){
+int64 one_pass_median(string filename){
     reader fr(filename);
     multiset<int64> curr_set;
     int64 low=0, high=0;
     int64 curr, curr_size, curr_set_size;
     //cin >> n;
-    curr_set_size =  sqrtl(n);
+    curr_set_size =  sqrtl(N);
     //vector<int64> v; //for testing
     while(curr_set.size()<curr_set_size){
         curr = fr.next();
@@ -14,7 +14,7 @@ int64 one_pass_median(string filename, int64 n){
         //v.push_back(curr);
     }
     curr_size = curr_set_size;
-    while(curr_size<n){
+    while(curr_size<N){
         curr = fr.next();
         //v.push_back(curr);
         auto it = curr_set.begin();
@@ -42,7 +42,7 @@ int64 one_pass_median(string filename, int64 n){
     }
 
     fr.close();
-    int64 index_needed = (n/2) - low; 
+    int64 index_needed = (N/2) - low; 
     if(index_needed > curr_set.size()){
         cout << "OOPS!! Algorithm Failed" << endl;
         return 0;
