@@ -2,11 +2,17 @@
 #define CHUNK_SIZE 1e6
 #define bign 1e11
 
+int64 get_rand_num(int64 Range){
+   static mt19937_64 gen(static_cast<unsigned int>(time(0)));
+   uniform_int_distribution<int64> dist(1, Range);
+   return dist(gen);
+}
+
 int generate_data(int64 n, int mode, string filename){
     FILE * fp = fopen(filename.c_str(), "w");
     int64 * buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     int64 curr = 0;
-    //srand(time(NULL));
+    srand(time(NULL));
     switch (mode)
     {
     case 0:
@@ -16,7 +22,7 @@ int generate_data(int64 n, int mode, string filename){
             int64 chunk = n > CHUNK_SIZE ? CHUNK_SIZE : n;
             for (int64 i = 0; i < chunk; i++)
             {
-                buffer[i] = get_rand_num(bign);
+                buffer[i] = rand();
             }
             fwrite(buffer, sizeof(int64), chunk, fp);
             printf("Remaining: %lld\n", n);
