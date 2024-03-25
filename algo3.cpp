@@ -52,6 +52,7 @@ int64 one_pass_median(string filename, int64 n){
     for(int64 i = 1;i<index_needed;i++){
         ++it;
     }
+    ++it; // just a hunch
     int64 guessed_median = *it;
     cout << "The median of the stream of n random integers is: " << guessed_median << '\n';
     // for(auto p : v){
