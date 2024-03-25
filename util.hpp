@@ -3,9 +3,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <random>
 using namespace std;
-
 typedef long long int64;
+
 int generate_data(int64 n, int mode, string filename);
 class reader {
     public:

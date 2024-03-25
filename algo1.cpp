@@ -1,35 +1,25 @@
-#include <bits/stdc++.h>
-#include <random>
-#include <ctime>
 #include "algo1.hpp"
-#include "util.hpp"
-using namespace std;
-typedef long long ll;
 
-int64 get_rand_num(){
-   static mt19937_64 gen(static_cast<unsigned int>(time(0)));
-   uniform_int_distribution<int64> dist(1, N);
-   return dist(gen);
-}
-int main(){
-     ll set_size = pow(N, 2.0/3.0) * log(N);
-     ll range_size = pow(N, 2.0/3.0);
-     ll med_pos = N/2;
+int64 TWO_PASS_ALGO(){
+     int64 set_size = pow(N, 2.0/3.0) * log(N);
+     int64 range_size = pow(N, 2.0/3.0);
+     int64 med_pos = N/2;
+     int64 found_med;
      generate_data(N, 0, "testdata.txt"); // for datset
      reader fr("testdata.txt");
-     ll num;
-     ll found = 0;
+     int64 num;
+     int64 found = 0;
      while(found!=1)
      {
-        vector<ll> set_nums;
-        unordered_set<ll> random_indices;
+        vector<int64> set_nums;
+        unordered_set<int64> random_indices;
         
         while(random_indices.size()<set_size){
-            ll curr = get_rand_num();
+            int64 curr = get_rand_num();
             random_indices.insert(curr);
         }
         
-        ll curr_file_ind = 1;
+        int64 curr_file_ind = 1;
 
         for(;curr_file_ind<=N;curr_file_ind++)
         {
@@ -43,10 +33,10 @@ int main(){
         fr.reset();
         
         nth_element(set_nums.begin(),set_nums.begin()+(set_size/2),set_nums.end());
-        ll med_num = set_nums[set_size/2];
-        multiset<ll> small_nums,large_nums;
-        ll rank = 1;
-        ll same_as = 1;
+        int64 med_num = set_nums[set_size/2];
+        multiset<int64> smaint64_nums,large_nums;
+        int64 rank = 1;
+        int64 same_as = 1;
         curr_file_ind = 1;
         for(;curr_file_ind<=N;curr_file_ind++)
         {
@@ -54,17 +44,17 @@ int main(){
             if(num<med_num)
             {
                 rank++;
-                if(small_nums.size()<range_size)
+                if(smaint64_nums.size()<range_size)
                 {
-                    small_nums.insert(num); 
+                    smaint64_nums.insert(num); 
                 }
                 else
                 {
-                    auto it = small_nums.begin();
+                    auto it = smaint64_nums.begin();
                     if(*it<num)
                     {
-                        small_nums.erase(it);
-                        small_nums.insert(num);
+                        smaint64_nums.erase(it);
+                        smaint64_nums.insert(num);
                     }
                 }
             }
@@ -80,8 +70,8 @@ int main(){
                     --it;
                     if(*it>num)
                     {
-                        small_nums.erase(it);
-                        small_nums.insert(num);
+                        smaint64_nums.erase(it);
+                        smaint64_nums.insert(num);
                     }
                 }
             }
@@ -92,13 +82,13 @@ int main(){
         
         fr.reset();
 
-        for(ll i = 1;i<same_as;i++){
-            small_nums.insert(med_num);
+        for(int64 i = 1;i<same_as;i++){
+            smaint64_nums.insert(med_num);
             rank++;
         }
 
-        ll low_range = rank - range_size;
-        ll up_range = rank + range_size;
+        int64 low_range = rank - range_size;
+        int64 up_range = rank + range_size;
 
         if(low_range>med_pos || up_range<med_pos)
         {
@@ -109,28 +99,29 @@ int main(){
             found = 1;
             if(med_pos==rank)
             {
-                cout << "The Median is : " << med_num;
+                found_med = med_num;
             }
             else if(med_pos>rank)
             {
-                ll offset = med_pos-rank;
+                int64 offset = med_pos-rank;
                 auto it = large_nums.begin();
-                for(ll i = 1;i<offset;i++){
+                for(int64 i = 1;i<offset;i++){
                     ++it;
                 }
-                ll found_med = *it;
-                cout << "The Median is : " << found_med;
+                found_med = *it;
+                //cout << "The Median is : " << found_med;
             }
             else{
-                ll offset = rank-med_pos;
-                auto it = small_nums.end();
-                for(ll i = 0;i<offset;i++){
+                int64 offset = rank-med_pos;
+                auto it = smaint64_nums.end();
+                for(int64 i = 0;i<offset;i++){
                     --it;
                 }
-                ll found_med = *it;
-                cout << "The Median is : " << found_med;
+                found_med = *it;
+                //cout << "The Median is : " << found_med;
             }
             //break;
         }
      }
+    return found_med; 
 }
