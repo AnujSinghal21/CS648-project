@@ -1,31 +1,21 @@
-#include <bits/stdc++.h>
-#include <random>
-#include <ctime>
-#include "util.hpp"
-using namespace std;
-typedef long long int64;
+#include "algo3.hpp"
 
-int64 get_curr_num(){
-   static mt19937_64 gen(static_cast<unsigned int>(time(0)));
-   uniform_int_distribution<int64> dist(1, 100000000000LL);
-   return dist(gen);
-}
-
-int main(){
+int64 one_pass_median(string filename, int64 n){
+    reader fr(filename);
     multiset<int64> curr_set;
     int64 low=0, high=0;
     int64 n, curr, curr_size, curr_set_size;
-    cin >> n;
+    //cin >> n;
     curr_set_size =  sqrtl(n);
     //vector<int64> v; //for testing
     while(curr_set.size()<curr_set_size){
-        curr = get_curr_num();
+        curr = fr.next();
         curr_set.insert(curr);
         //v.push_back(curr);
     }
     curr_size = curr_set_size;
     while(curr_size<n){
-        curr = get_curr_num();
+        curr = fr.next();
         //v.push_back(curr);
         auto it = curr_set.begin();
         auto itr = curr_set.end();
@@ -50,9 +40,12 @@ int main(){
         }
         curr_size++;
     }
+
+    fr.reset();
     int64 index_needed = (n/2) - low; 
     if(index_needed > curr_set.size()){
         cout << "OOPS!! Algorithm Failed";
+        return 0;
     }
     else{
     auto it = curr_set.begin();
@@ -64,6 +57,6 @@ int main(){
     // for(auto p : v){
     //     cout << p << ' ';
     // } // for testing purpose
+    return guessed_median;
     }
-    return 0;
 }
