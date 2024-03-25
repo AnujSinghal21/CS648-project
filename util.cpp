@@ -1,11 +1,6 @@
 #include "util.hpp"
 #define CHUNK_SIZE 1e6
-
-int64 rand_num(){
-   static mt19937_64 gen(static_cast<unsigned int>(time(0)));
-   uniform_int_distribution<int64> dist(1, 100000000000LL);
-   return dist(gen);
-}
+#define bign 1e11
 
 int generate_data(int64 n, int mode, string filename){
     FILE * fp = fopen(filename.c_str(), "w");
@@ -21,7 +16,7 @@ int generate_data(int64 n, int mode, string filename){
             int64 chunk = n > CHUNK_SIZE ? CHUNK_SIZE : n;
             for (int64 i = 0; i < chunk; i++)
             {
-                buffer[i] = rand_num();
+                buffer[i] = get_rand_num(bign);
             }
             fwrite(buffer, sizeof(int64), chunk, fp);
             printf("Remaining: %lld\n", n);

@@ -1,6 +1,6 @@
 #include "algo1.hpp"
 
-int64 TWO_PASS_ALGO(){
+int64 two_pass_algo(){
      int64 set_size = pow(N, 2.0/3.0) * log(N);
      int64 range_size = pow(N, 2.0/3.0);
      int64 med_pos = N/2;
@@ -15,7 +15,7 @@ int64 TWO_PASS_ALGO(){
         unordered_set<int64> random_indices;
         
         while(random_indices.size()<set_size){
-            int64 curr = get_rand_num();
+            int64 curr = get_rand_num(N);
             random_indices.insert(curr);
         }
         
@@ -34,7 +34,7 @@ int64 TWO_PASS_ALGO(){
         
         nth_element(set_nums.begin(),set_nums.begin()+(set_size/2),set_nums.end());
         int64 med_num = set_nums[set_size/2];
-        multiset<int64> smaint64_nums,large_nums;
+        multiset<int64> small_nums,large_nums;
         int64 rank = 1;
         int64 same_as = 1;
         curr_file_ind = 1;
@@ -44,17 +44,17 @@ int64 TWO_PASS_ALGO(){
             if(num<med_num)
             {
                 rank++;
-                if(smaint64_nums.size()<range_size)
+                if(small_nums.size()<range_size)
                 {
-                    smaint64_nums.insert(num); 
+                    small_nums.insert(num); 
                 }
                 else
                 {
-                    auto it = smaint64_nums.begin();
+                    auto it = small_nums.begin();
                     if(*it<num)
                     {
-                        smaint64_nums.erase(it);
-                        smaint64_nums.insert(num);
+                        small_nums.erase(it);
+                        small_nums.insert(num);
                     }
                 }
             }
@@ -70,8 +70,8 @@ int64 TWO_PASS_ALGO(){
                     --it;
                     if(*it>num)
                     {
-                        smaint64_nums.erase(it);
-                        smaint64_nums.insert(num);
+                        small_nums.erase(it);
+                        small_nums.insert(num);
                     }
                 }
             }
@@ -83,7 +83,7 @@ int64 TWO_PASS_ALGO(){
         fr.reset();
 
         for(int64 i = 1;i<same_as;i++){
-            smaint64_nums.insert(med_num);
+            small_nums.insert(med_num);
             rank++;
         }
 
@@ -113,7 +113,7 @@ int64 TWO_PASS_ALGO(){
             }
             else{
                 int64 offset = rank-med_pos;
-                auto it = smaint64_nums.end();
+                auto it = small_nums.end();
                 for(int64 i = 0;i<offset;i++){
                     --it;
                 }
