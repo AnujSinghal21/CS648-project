@@ -10,7 +10,7 @@ int64 two_pass_algo(string filename){
      reader fr(filename);
      int64 num;
      int64 found = 0;
-  
+     int64 num_iter = 1;
      while(found!=1)
      {
         vector<int64> set_nums;
@@ -98,6 +98,7 @@ int64 two_pass_algo(string filename){
         if(low_range>med_pos || up_range<med_pos)
         {
             // The algorithm continues
+            num_iter++;
             cout << "Another Iteration" << endl;
         }
         else
@@ -128,5 +129,6 @@ int64 two_pass_algo(string filename){
             //break;
         }
      }
+    cout << "Number of Iteration taken : " << num_iter << endl;
     return found_med; 
 }

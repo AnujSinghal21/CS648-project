@@ -54,7 +54,7 @@ int64 one_pass_median(string filename){
     }
     ++it;
     int64 guessed_median = *it;
-    cout << "The median of the stream of n random integers is: " << guessed_median << '\n';
+    //cout << "The median of the stream of n random integers is: " << guessed_median << '\n';
     // for(auto p : v){
     //     cout << p << ' ';
     // } // for testing purpose
