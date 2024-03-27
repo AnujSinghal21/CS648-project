@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Define the array of different values of N
-# N_values=(10 100 1000 10000 100000 1000000 10000000 100000000 10000000000)
-N_values=(1000)
+N_values=(10 100 1000 10000 100000 1000000 10000000 100000000 10000000000)
+# N_values=(1000)
 # Define the number of repetitions for each N
-# repetitions=(10000 1000 1000 1000 1000 1000 100 100 10)
-repetitions=(10)
+repetitions=(10000 1000 1000 1000 1000 1000 100 100 10)
+# repetitions=(10)
 
 make all
 
