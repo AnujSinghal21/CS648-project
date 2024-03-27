@@ -5,13 +5,16 @@ CC = g++
 CFLAGS = -Wall -O3 -flto -march=native
 
 # Source files
-SRCS = analysis1.cpp algo1.cpp util.cpp
+SRCS = algo1.cpp algo2.cpp algo3.cpp algo4.cpp data.cpp util.cpp
+
+# Header files
+HDRS = util.hpp
 
 # Object files
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.cpp=.o)
 
 # Target executable
-TARGET = analysis1 analysis2 analysis3 analysis4 data
+TARGET = algo1 algo2 algo3 algo4 data
 
 # Default target
 all: $(TARGET)
@@ -19,34 +22,29 @@ all: $(TARGET)
 # Compile source files into object files
 util.o: util.cpp util.hpp
 	$(CC) $(CFLAGS) -c util.cpp -o util.o
-algo1.o: algo1.cpp algo1.hpp util.hpp
+algo1.o: algo1.cpp util.hpp
 	$(CC) $(CFLAGS) -c algo1.cpp -o algo1.o
-algo2.o: algo2.cpp algo2.hpp util.hpp
+algo2.o: algo2.cpp util.hpp
 	$(CC) $(CFLAGS) -c algo2.cpp -o algo2.o
-algo3.o: algo3.cpp algo3.hpp util.hpp
+algo3.o: algo3.cpp util.hpp
 	$(CC) $(CFLAGS) -c algo3.cpp -o algo3.o
-algo4.o: algo4.cpp algo4.hpp util.hpp
+algo4.o: algo4.cpp util.hpp
 	$(CC) $(CFLAGS) -c algo4.cpp -o algo4.o
-analysis1.o: analysis1.cpp algo1.hpp util.hpp
-	$(CC) $(CFLAGS) -c analysis1.cpp -o analysis1.o
-analysis1: analysis1.o algo1.o util.o
-	$(CC) $(CFLAGS) analysis1.o algo1.o util.o -o analysis1
-analysis2.o: analysis2.cpp algo2.hpp util.hpp
-	$(CC) $(CFLAGS) -c analysis2.cpp -o analysis2.o
-analysis2: analysis2.o algo2.o util.o
-	$(CC) $(CFLAGS) analysis2.o algo2.o util.o -o analysis2
-analysis3.o: analysis3.cpp algo3.hpp util.hpp
-	$(CC) $(CFLAGS) -c analysis3.cpp -o analysis3.o
-analysis3: analysis3.o algo3.o util.o
-	$(CC) $(CFLAGS) analysis3.o algo3.o util.o -o analysis3
-analysis4.o: analysis4.cpp algo4.hpp util.hpp
-	$(CC) $(CFLAGS) -c analysis4.cpp -o analysis4.o
-analysis4: analysis4.o algo4.o util.o
-	$(CC) $(CFLAGS) analysis4.o algo4.o util.o -o analysis4
+
+algo1: algo1.o util.o
+	$(CC) $(CFLAGS) algo1.o util.o -o algo1
+algo2: algo2.o util.o
+	$(CC) $(CFLAGS) algo2.o util.o -o algo2
+algo3: algo3.o util.o
+	$(CC) $(CFLAGS) algo3.o util.o -o algo3
+algo4: algo4.o util.o
+	$(CC) $(CFLAGS) algo4.o util.o -o algo4
+
 data.o: data.cpp util.hpp
 	$(CC) $(CFLAGS) -c data.cpp -o data.o
 data: data.o util.o
 	$(CC) $(CFLAGS) data.o util.o -o data
+
 # Clean up object files and the target executable
 clean:
 	rm -f $(OBJS) $(TARGET)

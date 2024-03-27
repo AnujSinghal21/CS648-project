@@ -11,7 +11,7 @@ int generate_data(int64 n, int mode, string filename){
     FILE * fp = fopen(filename.c_str(), "w");
     int64 * buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     int64 curr = 0;
-    srand(time(NULL));
+    srand((unsigned int)clock());
     switch (mode)
     {
     case 0:

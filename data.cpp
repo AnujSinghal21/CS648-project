@@ -1,7 +1,9 @@
 #include "util.hpp"
 
-int main()
+int main(int argc, char *argv[])
 {
-    generate_data(N, 1, "data.bin"); // for datset, if want sortd dataset set flag to be 1 or -1, otherwise 0 for random dataset
+    int n = atoi(argv[1]);
+    int mode = atoi(argv[2]);
+    generate_data(n, mode, "data.bin"); // for dataset, if want sorted dataset set flag to be 1 or -1, otherwise 0 for random dataset
     return 0;
 }
