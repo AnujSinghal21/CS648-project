@@ -11,54 +11,58 @@
 */
 int64 algo3(string filename, int64 n){
     reader fr(filename);
-    multiset<int64> curr_set;
+    multiset<int64> curr_set; // maintain the set of elements in the middle
     int64 low=0, high=0;
-    int64 curr, curr_size, curr_set_size;
-    curr_set_size =  sqrtl(n);
-    while(curr_set.size()<curr_set_size){
+    int64 curr;
+    int64 buffer_size = sqrt(n) * log(n);
+    for (int64 i = 0; i < buffer_size; i++) // read the first sqrt(n) elements
+    {
         curr = fr.next();
         curr_set.insert(curr);
     }
-    curr_size = curr_set_size;
-    while(curr_size<n){
+    for (int64 i = buffer_size; i < n; i++)
+    {
         curr = fr.next();
-        auto it = curr_set.begin();
-        auto itr = curr_set.end();
-        --itr;
-        if(curr <= *it){
+        int64 mn = *curr_set.begin();
+        int64 mx = *curr_set.rbegin();
+        if (curr <= mn)
+        {
             low++;
         }
-        else if(curr >= *itr){
+        else if (curr >= mx)
+        {
             high++;
         }
-        else{
-            if(low<high){
-                curr_set.erase(it);
+        else
+        {
+            if (low < high)
+            {
+                curr_set.erase(curr_set.begin()); // remove the smallest element
                 curr_set.insert(curr);
                 low++;
             }
-            else{
-                curr_set.erase(itr);
+            else
+            {
+                curr_set.erase(--curr_set.end()); // remove the largest element
                 curr_set.insert(curr);
                 high++;
             }
         }
-        curr_size++;
     }
 
     fr.close();
     int64 index_needed = (n/2) - low; 
-    if(index_needed > curr_set.size()){
+    if(index_needed > buffer_size){
+        // one-pass algorithm failed
         cerr << "One-pass Algorithm Failed" << endl;
         return -1;
     }
     else{
         auto it = curr_set.begin();
-        for(int64 i = 1;i<index_needed;i++){
+        for(int64 i = 0;i<index_needed;i++){
             ++it;
         }
-        ++it;
-        int64 guessed_median = *it;
+        int64 guessed_median = *it; // the median is the (n/2 - low + 1)th element in the multiset
         return guessed_median;
     }
 }

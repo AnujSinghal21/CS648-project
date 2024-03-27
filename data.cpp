@@ -1,5 +1,6 @@
 #include "util.hpp"
 
+// generate data for the dataset
 int main(int argc, char *argv[])
 {
     int n = atoi(argv[1]);

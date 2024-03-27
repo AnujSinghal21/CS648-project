@@ -17,32 +17,35 @@ int64 algo1(string filename, int64 n){
     int64 offset = pow(n, 1.0/3.0) * log(n); // n^(1/3) logn
     int64 left_pivot = sample_size/2 - offset;
     int64 right_pivot = sample_size/2 + offset;
-    nth_element(sample, sample + left_pivot, sample + sample_size);
-    int64 left_median = sample[left_pivot];
-    nth_element(sample, sample + right_pivot, sample + sample_size);
-    int64 right_median = sample[right_pivot];
-    fr.reset();
+    nth_element(sample, sample + left_pivot, sample + sample_size); // get left pivot
+    int64 left_median = sample[left_pivot]; // left pivot
+    nth_element(sample, sample + right_pivot, sample + sample_size); // get right pivot
+    int64 right_median = sample[right_pivot];   // right pivot
+    fr.reset(); // reset the file for second pass
+
     int64 count = 0;
     int64 rank_lower = 0;
     for (int64 i = 0; i < n; i++){
         int64 num = fr.next();
-        if (num >= left_median && num <= right_median){
+        if (num >= left_median && num <= right_median){ // get numbers between left and right pivot
             sample[count++] = num;
             if (count == sample_size){
-                printf("Sample size reached\n");
+                cerr << "Sample size reached\n"; // sample size reached
                 break;
             }
         }
         if (num < left_median){
-            rank_lower++;
+            rank_lower++; // update rank of left pivot
         }
     }
-    if (n/2 - rank_lower < 0 || n/2 - rank_lower >= count){
+    if (n/2 - rank_lower < 0 || n/2 - rank_lower >= count){ 
+        // rank out of bounds, algorithm failed
         free(sample);
         fr.close();
         cerr << "Error: Rank out of bounds\n";
         return -1;
     }
+    // find median using rank and numbers between left and right pivot
     nth_element(sample, sample + n/2 - rank_lower, sample + count);
     int64 median = sample[n/2 - rank_lower];
     free(sample);
@@ -50,6 +53,7 @@ int64 algo1(string filename, int64 n){
     return median;
 }
 
+// main function, takes n as input (in command line)
 int main(int argc, char *argv[]){
     int n = atoi(argv[1]);
     clock_t t_start, t_end;

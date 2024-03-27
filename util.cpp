@@ -8,6 +8,7 @@ int64 get_rand_num(int64 Range){
 }
 
 int generate_data(int64 n, int mode, string filename){
+    // generate a dataset of size n in the file filename
     FILE * fp = fopen(filename.c_str(), "w");
     int64 * buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     int64 curr = 0;
@@ -64,6 +65,7 @@ int generate_data(int64 n, int mode, string filename){
     return 0;
 }
 
+// reader class methods for reading the dataset
 int64 reader::next(){
     if (index == CHUNK_SIZE)
     {
@@ -93,6 +95,7 @@ reader::reader(string filename){
 }
 
 int64 * get_sample(int64 sample_size, int64 n, reader & fr){
+    // get a sample of size sample_size from the dataset (uniformly at random)
     int64 sampled = 0;
     int64 random = 0;
     int64 * sample = (int64 *) malloc(sizeof(int64) * sample_size);

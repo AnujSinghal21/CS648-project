@@ -6,17 +6,19 @@
 int algo4(string filename, int64 n){
     reader fr(filename);
     int64* arr = (int64 *)malloc(n * sizeof(int64));
+    // Read the file
     for (int64 i = 0; i < n; i++)
     {
         arr[i] = fr.next();
     }
-    nth_element(arr, arr + n/2, arr+n);
+    nth_element(arr, arr + n/2, arr+n); // find median (STL)
     int64 median = arr[n/2];
     fr.close();
     free(arr);
     return median;
 }
 
+// main function, takes n as input (in command line)
 int main(int argc, char *argv[]){
     int n = atoi(argv[1]);
     clock_t t_start, t_end;
