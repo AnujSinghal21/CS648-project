@@ -4,7 +4,7 @@ int main(){
     clock_t t_start, t_end;
     //srand(time(0));
     t_start = clock();
-    int64 median = stl_median("testdata.txt");
+    int64 median = stl_median("data.bin");
     t_end = clock();
     printf("Median: %lld\n", median);
     double time_taken = ((double)(t_end - t_start)) * 1000 / CLOCKS_PER_SEC;

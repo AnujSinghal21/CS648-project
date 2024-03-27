@@ -91,3 +91,22 @@ reader::reader(string filename){
     buffer = (int64 *)malloc(CHUNK_SIZE * sizeof(int64));
     index = CHUNK_SIZE;
 }
+
+int64 * get_sample(int64 sample_size, int64 n, reader & fr){
+    int64 sampled = 0;
+    int64 random = 0;
+    int64 * sample = (int64 *) malloc(sizeof(int64) * sample_size);
+    for (int64 i = 0; i < n; i++){
+        random = rand() % n;
+        if (random < sample_size){
+            sample[sampled] = fr.next();
+            sampled++;
+        }else{
+            fr.next();
+        }
+        if (sampled == sample_size){
+            break;
+        }
+    } 
+    return sample;
+}

@@ -11,7 +11,7 @@ SRCS = analysis1.cpp algo1.cpp util.cpp
 OBJS = $(SRCS:.c=.o)
 
 # Target executable
-TARGET = analysis1 analysis2 analysis3 data
+TARGET = analysis1 analysis2 analysis3 analysis4 data
 
 # Default target
 all: $(TARGET)
@@ -25,6 +25,8 @@ algo2.o: algo2.cpp algo2.hpp util.hpp
 	$(CC) $(CFLAGS) -c algo2.cpp -o algo2.o
 algo3.o: algo3.cpp algo3.hpp util.hpp
 	$(CC) $(CFLAGS) -c algo3.cpp -o algo3.o
+algo4.o: algo4.cpp algo4.hpp util.hpp
+	$(CC) $(CFLAGS) -c algo4.cpp -o algo4.o
 analysis1.o: analysis1.cpp algo1.hpp util.hpp
 	$(CC) $(CFLAGS) -c analysis1.cpp -o analysis1.o
 analysis1: analysis1.o algo1.o util.o
@@ -37,6 +39,10 @@ analysis3.o: analysis3.cpp algo3.hpp util.hpp
 	$(CC) $(CFLAGS) -c analysis3.cpp -o analysis3.o
 analysis3: analysis3.o algo3.o util.o
 	$(CC) $(CFLAGS) analysis3.o algo3.o util.o -o analysis3
+analysis4.o: analysis4.cpp algo4.hpp util.hpp
+	$(CC) $(CFLAGS) -c analysis4.cpp -o analysis4.o
+analysis4: analysis4.o algo4.o util.o
+	$(CC) $(CFLAGS) analysis4.o algo4.o util.o -o analysis4
 data.o: data.cpp util.hpp
 	$(CC) $(CFLAGS) -c data.cpp -o data.o
 data: data.o util.o

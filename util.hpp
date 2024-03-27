@@ -6,7 +6,7 @@
 #include <random>
 using namespace std;
 typedef long long int64;
-#define N 100000000   
+#define N 10000000  
 // HERE YOU SET THE SIZE OF THE INPUT FOR WHICH YOU WANT TO FIND MEDIAN
 // DON'T DECLARE LIKE 1e8,1e7 etc. BECAUSE WE HAVE A FUNCTION (nth_element) THAT DOESN'T SUPPORT THESE TYPE OF DECLARATION
 int64 get_rand_num(int64 Range);
@@ -22,5 +22,4 @@ class reader {
         void close();
 };
 
-
-
+int64 * get_sample(int64 sample_size, int64 n, reader & fr);
