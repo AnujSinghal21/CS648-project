@@ -78,7 +78,7 @@ int64 reader::next(){
     return buffer[index++];
 }
 void reader::reset(){
-    index = 0;
+    index = CHUNK_SIZE;
     fseek(fp, 0, SEEK_SET);
     return;
 }
@@ -100,8 +100,8 @@ int64 * get_sample(int64 sample_size, int64 n, reader & fr){
     int64 random = 0;
     int64 * sample = (int64 *) malloc(sizeof(int64) * sample_size);
     for (int64 i = 0; i < n; i++){
-        random = rand() % n;
-        if (random < sample_size){
+        random = get_rand_num(n);
+        if (random < sample_size || sampled + n - i <= sample_size){
             sample[sampled] = fr.next();
             sampled++;
         }else{
@@ -111,5 +111,6 @@ int64 * get_sample(int64 sample_size, int64 n, reader & fr){
             break;
         }
     } 
+    cerr << "Sampled: " << sampled << endl;
     return sample;
 }
