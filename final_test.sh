@@ -31,7 +31,7 @@ for ((i=0; i<${#N_values[@]}; i++)); do
         if [ $N -le 100000000 ]; then
             ./algo4 $N >> observations.csv
         else
-            printf "-, -" >> observations.csv
+            printf "NA, NA" >> observations.csv
         fi
         printf "\n" >> observations.csv
     done
