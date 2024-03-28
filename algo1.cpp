@@ -38,8 +38,6 @@ int64 algo1(string filename, int64 n){
             rank_lower++; // update rank of left pivot
         }
     }
-    cerr << "Count: " << count << endl;
-    cerr << "Rank: " << rank_lower << endl;
     if (n/2 - rank_lower < 0 || n/2 - rank_lower >= count){ 
         // rank out of bounds, algorithm failed
         free(sample);

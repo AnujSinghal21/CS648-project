@@ -111,6 +111,5 @@ int64 * get_sample(int64 sample_size, int64 n, reader & fr){
             break;
         }
     } 
-    cerr << "Sampled: " << sampled << endl;
     return sample;
 }
