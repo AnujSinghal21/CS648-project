@@ -55,7 +55,8 @@ int64 algo1(string filename, int64 n){
 
 // main function, takes n as input (in command line)
 int main(int argc, char *argv[]){
-    int64 n = atoi(argv[1]);
+    int64 n = atoll(argv[1]);
+    
     clock_t t_start, t_end;
     srand(time(0));
     t_start = clock();
